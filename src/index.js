@@ -2,17 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Client from 'shopify-buy'
-
-const client = Client.buildClient({
-  domain: 'spursexpress.myshopify.com',
-  storefrontAccessToken: process.env.REACT_APP_STOREFRONT_TOKEN
-});
-
 
 ReactDOM.render(
   <React.StrictMode>
-    <App  client ={client} />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

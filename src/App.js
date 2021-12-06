@@ -1,21 +1,37 @@
-import React from 'react';
-import Client from 'shopify-buy';
-import axios from 'axios';
+import React, {useState} from 'react';
+import Home from './pages/home'
+import Products from './pages/products'
+import Checkout from './pages/checkout'
+import Playground from './pages/playground'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import "tailwindcss/tailwind.css"
 
-const App = ( {client} ) => {
+const App = () => {
 
-const getProducts = () => {
-  client.product.fetchAll().then((products) => {
-  // Do something with the products
-  console.log(products);
-  });
-}
-
-getProducts();
+const [cart, setCart] = useState([])
 
   return (
-    <div className="App">
-      <p>Hello World</p>
+    <div>
+    <Router>
+        <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/shop">
+                <Products />
+              </Route>
+              <Route path="/checkout">
+                <Checkout />
+              </Route>
+              <Route path="/playground">
+                <Playground />
+              </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
