@@ -50,7 +50,7 @@ useEffect(() => {
             <Home />
           </Route>
           <Route path="/shop">
-            <Products cart={cart} addToCart={addToCart} cartId={cart.id}/>
+            <Products cart={cart} addToCart={addToCart} cartId={cart.id} removeFromCart={removeFromCart}/>
           </Route>
           <Route path="/checkout">
             <Checkout />
