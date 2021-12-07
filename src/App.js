@@ -15,6 +15,8 @@ import "tailwindcss/tailwind.css"
 const App = () => {
 
 const [cart, setCart] = useState({})
+const [open, setOpen] = useState(true)
+
 
 const createCheckout = async () => {
     const checkout = await client.checkout.create()
@@ -38,6 +40,8 @@ const removeFromCart = async (checkoutId, lineItemIds) => {
     setCart(checkout)
 }
 
+
+
 useEffect(() => {
     createCheckout()
     },[]);
@@ -47,7 +51,7 @@ useEffect(() => {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home cart={cart}/>
           </Route>
           <Route path="/shop">
             <Products cart={cart} addToCart={addToCart} cartId={cart.id} removeFromCart={removeFromCart}/>

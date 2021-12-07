@@ -3,13 +3,11 @@ import Header from '../components/header'
 import Hero from '../components/hero'
 import HowItWorks from '../components/howitworks'
 
-const Home = () => {
-
-	
+const Home = ({cart, items}) => {
 
 	return (
 		<div>
-			<Header />
+			<Header cart={cart} items={items} />
 			<Hero />
 			<HowItWorks />
 		</div>

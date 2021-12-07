@@ -3,9 +3,11 @@ import Header from '../components/header'
 import Client from 'shopify-buy'
 import { client } from '../helpers/helpers'
 
-const Products = ({cart, addToCart, cartId, removeFromCart }) => {
+const Products = ({cart, addToCart, cartId, removeFromCart}) => {
 
 const [productList, setProductList] = useState([])
+const [items, setItems] = useState([])
+
 
 const createLineItem = (variantId) => {
 	return [
@@ -28,20 +30,41 @@ const getLineItemId = (variantId) => {
 }
 
 const cartAdder = async (variantId, index) => {
-
 		const lineItems = await createLineItem(variantId);
-		addToCart(cartId, lineItems)
-		let newArr = [...productList]; // copying the old datas array
-  	newArr[index].clicked = true; // replace e.target.value with whatever you want to change it to
+		await addToCart(cartId, lineItems)
+		let newArr = [...productList]; 
+  	newArr[index].clicked = true; 
   	setProductList(newArr);
+  	getItems()
 }
 
 const removeItem = async (variantId, index) => {
 		const idsToRemove = await getLineItemId(variantId)
-		removeFromCart(cartId, idsToRemove);
+		await removeFromCart(cartId, idsToRemove);
 		let newArr = [...productList]
 		newArr[index].clicked = false;
 		setProductList(newArr);
+		getItems()
+}
+
+const getItems = () => {
+
+  const arr = []
+
+  cart.lineItems.forEach((lineItem) => {
+
+    let item = {
+      id: lineItem.id,
+      name: lineItem.title,
+      price: lineItem.variant.price,
+      quantity: lineItem.quantity,
+      imageSrc: lineItem.variant.image.src,
+      imageAlt: lineItem.title
+    }
+    arr.push(item)
+  })
+
+  setItems(arr)
 }
 
 const getProducts = async () => {
@@ -72,7 +95,7 @@ const button = (clicked, vId, index) => {
   if (clicked) {
 	  return (<button 
 	 	onClick={() => removeItem(vId, index)}
-	 	className="w-full mt-2 text-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center mr-3 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+	 	className="w-full mt-2 text-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center mr-3 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
 	 	<svg className="-ml-1 mr-2 h-5 w-5 text-center" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
 	 	Remove from cart</button>);
 	  }
@@ -87,11 +110,9 @@ useEffect(() => {
     getProducts()
   	},[]);
 
-
-
 	return (
 		<div>
-			<Header />
+			<Header cart={cart} items={items} />
 			<div className="bg-white">
       			<div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         		<h2 className="sr-only">Products</h2>
