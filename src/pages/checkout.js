@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 
-const Checkout = () => {
+const Checkout = ({getItems}) => {
 
 const [open, setOpen] = useState(true)
 

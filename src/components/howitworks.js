@@ -5,7 +5,11 @@ const HowItWorks = () => {
 	return(
 		<div className="container mx-auto mt-8">
 
-		<div className="flex flex-wrap justify-center mx-auto">
+			<div className="text-5xl text-center">How it works</div>
+
+		<div className="flex flex-wrap justify-center mx-auto mt-3">
+
+			
 
 			<div className="block mx-3 p-6 bg-white hover:bg-gray-100 shadow-md border border-gray-200 rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 sm: my-3">
     			<h5 className="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">1. Choose a player and place your order.</h5>

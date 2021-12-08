@@ -3,11 +3,7 @@ import Header from '../components/header'
 import Client from 'shopify-buy'
 import { client } from '../helpers/helpers'
 
-const Products = ({cart, addToCart, cartId, removeFromCart}) => {
-
-const [productList, setProductList] = useState([])
-const [items, setItems] = useState([])
-
+const Products = ({cart, addToCart, cartId, removeFromCart, getItems, items, productList, getProducts, setProductList}) => {
 
 const createLineItem = (variantId) => {
 	return [
@@ -17,7 +13,6 @@ const createLineItem = (variantId) => {
 		}
 		];
 }
-
 
 const getLineItemId = (variantId) => {
 	const arr = []
@@ -35,7 +30,6 @@ const cartAdder = async (variantId, index) => {
 		let newArr = [...productList]; 
   	newArr[index].clicked = true; 
   	setProductList(newArr);
-  	getItems()
 }
 
 const removeItem = async (variantId, index) => {
@@ -44,54 +38,10 @@ const removeItem = async (variantId, index) => {
 		let newArr = [...productList]
 		newArr[index].clicked = false;
 		setProductList(newArr);
-		getItems()
 }
-
-const getItems = () => {
-
-  const arr = []
-
-  cart.lineItems.forEach((lineItem) => {
-
-    let item = {
-      id: lineItem.id,
-      name: lineItem.title,
-      price: lineItem.variant.price,
-      quantity: lineItem.quantity,
-      imageSrc: lineItem.variant.image.src,
-      imageAlt: lineItem.title
-    }
-    arr.push(item)
-  })
-
-  setItems(arr)
-}
-
-const getProducts = async () => {
-
-		const listy = []
-		const products = await client.product.fetchAll()
-
-	  	products.forEach((p) => {
-
-	  	let item = {
-	  		id: p.id,
-	  		name: p.title,
-	  		href: '#',
-	  		price: '£' + p.variants[0].price,
-	  		imageSrc: p.images[0].src,
-	  		imageAlt: p.handle,
-	  		variantId: p.variants[0].id,
-	  		clicked: false
-	  		}
-
-	  	listy.push(item)	
-
-	  })
-	 setProductList(listy)
-	}
 
 const button = (clicked, vId, index) => {
+
   if (clicked) {
 	  return (<button 
 	 	onClick={() => removeItem(vId, index)}
@@ -106,13 +56,9 @@ const button = (clicked, vId, index) => {
 	  Add to cart</button>);
 		}
 
-useEffect(() => {
-    getProducts()
-  	},[]);
-
 	return (
 		<div>
-			<Header cart={cart} items={items} />
+			<Header cart={cart} getItems={getItems} items={items}/>
 			<div className="bg-white">
       			<div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         		<h2 className="sr-only">Products</h2>

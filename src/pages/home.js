@@ -3,11 +3,11 @@ import Header from '../components/header'
 import Hero from '../components/hero'
 import HowItWorks from '../components/howitworks'
 
-const Home = ({cart, items}) => {
+const Home = ({cart, getItems, items}) => {
 
 	return (
 		<div>
-			<Header cart={cart} items={items} />
+			<Header cart={cart} items={items} getItems={getItems} />
 			<Hero />
 			<HowItWorks />
 		</div>
