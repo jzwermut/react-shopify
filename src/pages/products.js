@@ -40,6 +40,23 @@ const removeItem = async (variantId, index) => {
 		setProductList(newArr);
 }
 
+const inCart = () => {
+	let newArr = [...productList];
+	console.log(newArr)
+	newArr.forEach((product) => {
+		cart.lineItems.forEach((item) => {
+			if(product.variantId === item.variant.id) {
+				product.clicked = true
+			}
+		})
+	})
+	setProductList(newArr);
+}
+
+useEffect(() => {
+    inCart()
+    },[]);
+
 const button = (clicked, vId, index) => {
 
   if (clicked) {

@@ -22,7 +22,6 @@ const [productList, setProductList] = useState([])
 
 const createCheckout = async () => { //creates a new checkout when the app loads and sets the state of cart to the checkout array
   const carty = localStorage.getItem('cart')
-  console.log(carty)
 
   if(carty === null) {
     const checkout = await client.checkout.create()
