@@ -42,7 +42,6 @@ const removeItem = async (variantId, index) => {
 
 const inCart = () => {
 	let newArr = [...productList];
-	console.log(newArr)
 	newArr.forEach((product) => {
 		cart.lineItems.forEach((item) => {
 			if(product.variantId === item.variant.id) {
@@ -75,7 +74,7 @@ const button = (clicked, vId, index) => {
 
 	return (
 		<div>
-			<Header cart={cart} getItems={getItems} items={items}/>
+			<Header cart={cart} getItems={getItems} items={items} removeItem={removeItem} inCart={inCart} productList={productList} />
 			<div className="bg-white">
       			<div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         		<h2 className="sr-only">Products</h2>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 
-const Header = ({cart, getItems, items}) => {
+const Header = ({cart, getItems, items, removeItem, inCart, productList}) => {
 
 const [open, setOpen] = useState(false)
 
@@ -14,7 +14,20 @@ const handler = async() => {
 	setOpen(true)
 }
 
-if (items === undefined ) {
+const remover = async(vId) => {
+	const temp = vId;
+	let indy = 0
+	
+	await productList.forEach((product, index) => {
+		if(vId === product.variantId) {
+			indy = index
+		}
+	})
+
+	removeItem(vId, indy);
+}
+
+if (cart.lineItems === undefined ) {
 	return (
 	<h1>...Loading</h1>
 	)
@@ -69,12 +82,12 @@ else {
                     <div className="mt-8">
                       <div className="flow-root">
                         <ul role="list" className="-my-6 divide-y divide-gray-200">
-                          {items.map((product) => (
-                            <li key={product.id} className="py-6 flex">
+                          {cart.lineItems.map((item) => (
+                            <li key={item.id} className="py-6 flex">
                               <div className="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
                                 <img
-                                  src={product.imageSrc}
-                                  alt={product.imageAlt}
+                                  src={item.variant.image.src}
+                                  alt={item.title}
                                   className="w-full h-full object-center object-cover"
                                 />
                               </div>
@@ -83,17 +96,17 @@ else {
                                 <div>
                                   <div className="flex justify-between text-base font-medium text-gray-900">
                                     <h3>
-                                      <a href={product.href}>{product.name}</a>
+                                      <a href={item.href}>{item.title}</a>
                                     </h3>
-                                    <p className="ml-4">{product.price}</p>
+                                    <p className="ml-4">{item.variant.price}</p>
                                   </div>
                                   <p className="mt-1 text-sm text-gray-500">Signed shirt</p>
                                 </div>
                                 <div className="flex-1 flex items-end justify-between text-sm">
-                                  <p className="text-gray-500">Qty {product.quantity}</p>
+                                  <p className="text-gray-500">Qty {item.quantity}</p>
 
                                   <div className="flex">
-                                    <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                    <button onClick={() => remover(item.variant.id)}type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
                                       Remove
                                     </button>
                                   </div>
