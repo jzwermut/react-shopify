@@ -127,7 +127,7 @@ else {
                     <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                     <div className="mt-6">
                       <Link to="/checkout"
-                        className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                        className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
                       >
                         Checkout
                       </Link>
@@ -137,7 +137,7 @@ else {
                         or{' '}
                         <button
                           type="button"
-                          className="text-indigo-600 font-medium hover:text-indigo-500"
+                          className="text-blue-600 font-medium hover:text-blue-500"
                           onClick={() => setOpen(false)}
                         >
                           Continue Shopping<span aria-hidden="true"> &rarr;</span>
