@@ -16,9 +16,13 @@ Note - This app requires an ongoing paid subscription to Shopify. If the link ab
 
 ## Wireframes 
 
-![Wireframe1](/public/images/wireframe1.png "San Juan Mountains")
+![Wireframe1](/public/images/wireframe1.png "Wireframe1")
+![Wireframe2](/public/images/wireframe2.png "Wireframe2")
 
 
 ## Areas to improve
-
+- Refactoring with useContext
+- Loading button state
+- Product details page
+- Item list at checkout
 
