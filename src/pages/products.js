@@ -3,42 +3,9 @@ import Header from '../components/header'
 import Client from 'shopify-buy'
 import { client } from '../helpers/helpers'
 
-const Products = ({cart, addToCart, cartId, removeFromCart, getItems, items, productList, getProducts, setProductList}) => {
+const Products = ({cart, addToCart, cartAdder, removeItem, removeFromCart, getItems, items, productList, getProducts, setProductList}) => {
 
-const createLineItem = (variantId) => {
-	return [
-		{
-			variantId: variantId,
-			quantity: 1
-		}
-		];
-}
 
-const getLineItemId = (variantId) => {
-	const arr = []
-	cart.lineItems.forEach((lineItem) => {
-		if(lineItem.variant.id === variantId) {
-			arr.push(lineItem.id)
-		}
-	})
-	return arr
-}
-
-const cartAdder = async (variantId, index) => {
-		const lineItems = await createLineItem(variantId);
-		await addToCart(cartId, lineItems)
-		let newArr = [...productList]; 
-  	newArr[index].clicked = true; 
-  	setProductList(newArr);
-}
-
-const removeItem = async (variantId, index) => {
-		const idsToRemove = await getLineItemId(variantId)
-		await removeFromCart(cartId, idsToRemove);
-		let newArr = [...productList]
-		newArr[index].clicked = false;
-		setProductList(newArr);
-}
 
 const inCart = () => {
 	let newArr = [...productList];

@@ -98,6 +98,41 @@ const getItems = () => {
   setItems(arr)
 }
 
+const createLineItem = (variantId) => {
+  return [
+    {
+      variantId: variantId,
+      quantity: 1
+    }
+    ];
+}
+
+const getLineItemId = (variantId) => {
+  const arr = []
+  cart.lineItems.forEach((lineItem) => {
+    if(lineItem.variant.id === variantId) {
+      arr.push(lineItem.id)
+    }
+  })
+  return arr
+}
+
+const cartAdder = async (variantId, index) => {
+    const lineItems = await createLineItem(variantId);
+    await addToCart(cart.id, lineItems)
+    let newArr = [...productList]; 
+    newArr[index].clicked = true; 
+    setProductList(newArr);
+}
+
+const removeItem = async (variantId, index) => {
+    const idsToRemove = await getLineItemId(variantId)
+    await removeFromCart(cart.id, idsToRemove);
+    let newArr = [...productList]
+    newArr[index].clicked = false;
+    setProductList(newArr);
+}
+
 useEffect(() => {
     createCheckout()
     getProducts()
@@ -108,10 +143,10 @@ useEffect(() => {
       <Router>
           <Switch>
             <Route exact path="/">
-              <Home cart={cart} items={items} getItems={getItems}/>
+              <Home cart={cart} items={items} getItems={getItems} removeItem={removeItem} productList={productList}/>
             </Route>
             <Route path="/shop">
-              <Products cart={cart} addToCart={addToCart} cartId={cart.id} removeFromCart={removeFromCart} items={items} getItems={getItems} productList={productList} getProducts={getProducts} setProductList={setProductList}/>
+              <Products cartAdder={cartAdder} removeItem={removeItem} cart={cart} addToCart={addToCart} cartId={cart.id} removeFromCart={removeFromCart} items={items} getItems={getItems} productList={productList} getProducts={getProducts} setProductList={setProductList}/>
             </Route>
             <Route path="/checkout">
               <Checkout />
