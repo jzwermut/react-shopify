@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import Home from './pages/home'
 import Products from './pages/products'
 import Checkout from './pages/checkout'
-import Playground from './pages/playground'
 import Header from './components/header'
 import Client from 'shopify-buy'
 import { client } from './helpers/helpers'
@@ -149,10 +148,7 @@ useEffect(() => {
               <Products cartAdder={cartAdder} removeItem={removeItem} cart={cart} addToCart={addToCart} cartId={cart.id} removeFromCart={removeFromCart} items={items} getItems={getItems} productList={productList} getProducts={getProducts} setProductList={setProductList}/>
             </Route>
             <Route path="/checkout">
-              <Checkout />
-            </Route>
-            <Route path="/playground">
-              <Playground />
+              <Checkout cart={cart}  removeItem={removeItem} productList={productList}/>
             </Route>
           </Switch>        
       </Router>
