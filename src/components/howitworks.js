@@ -16,7 +16,7 @@ const HowItWorks = () => {
 		    </div>
 		    <div className="p-8">
 		      <a href="#" className="block mt-1 text-2xl leading-tight font-medium text-black hover:underline">1. Choose a player and place your order.</a>
-		      <p className="mt-2 text-xl text-gray-500">Head on over to our shop to which players can sign your shirt.</p>
+		      <p className="mt-2 text-xl text-gray-500">Head on over to our shop to see which players can sign your shirt.</p>
 		    </div>
 		  </div>
 		</div>
