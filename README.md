@@ -1,7 +1,7 @@
 # Spurs Express
 
 Live shop here [Spurs Express Shop](https://spursexpress.netlify.app/).
-Note - This app requires an ongoing paid subscription to Shopify. If the link above does not work it's because I have stopped paying that subscription.
+Note - This app requires an ongoing paid subscription to Shopify. If there are no products in the store it's because the subscription has been cancelled.
 
 ## Technologies used
 
